@@ -14,46 +14,57 @@ public class InvoiceService : IInvoiceService
 
     public async Task<InvoiceDto?> GetInvoice(Guid invoiceId)
     {        
-        InvoiceDto? invoice = await _excerciseContext.Invoices
-            .Where(x => x.Id == invoiceId)
-            .Select(x => new InvoiceDto
-            {
-                Id = x.Id,
-                Reference = x.Reference,
-                CreatedAt = x.CreatedAt,
-                LineItems = x.LineItems.Select(li => new InvoiceLineItemDto
-                {
-                    Id = li.Id,
-                    Description = li.Description,
-                    Amount = li.Amount,
-                    CreatedAt = li.CreatedAt,
-                    DueDate = li.DueDate
-                }).ToList(),
+        var query = from inv in _excerciseContext.Invoices
+                    where inv.Id == invoiceId
+                    join invList in _excerciseContext.InvoiceLineItems
+                        on inv.Id equals invList.InvoiceId into lineItemsGroup
+                    from li in lineItemsGroup.DefaultIfEmpty()
+                    join led in _excerciseContext.LedgerEntries
+                        on inv.Id equals led.InvoiceId into ledgerEntriesGroup
+                    from le in ledgerEntriesGroup.DefaultIfEmpty()
+                    select new { inv, li, le };
 
-                LedgerEntries = x.LedgerEntries.Select(le => new LedgerEntryDto
+        var result = await query.ToListAsync();
+
+        // Group and project to DTO
+        InvoiceDto? invoice = result
+            .GroupBy(x => x.inv)
+            .Select(g => new InvoiceDto
+            {
+                Id = g.Key.Id,
+                Reference = g.Key.Reference,
+                CreatedAt = g.Key.CreatedAt,
+                LineItems = g.Where(x => x.li != null).Select(x => new InvoiceLineItemDto
                 {
-                    Id = le.Id,
-                    Type = le.Type,
-                    Amount = le.Amount,
-                    CreatedAt = le.CreatedAt,
-                    LineItemId = le.LineItemId
-                }).ToList()
-            }).SingleOrDefaultAsync();
+                    Id = x.li.Id,
+                    Description = x.li.Description,
+                    Amount = x.li.Amount,
+                    CreatedAt = x.li.CreatedAt,
+                    DueDate = x.li.DueDate
+                }).Distinct().ToList(),
+                LedgerEntries = g.Where(x => x.le != null).Select(x => new LedgerEntryDto
+                {
+                    Id = x.le.Id,
+                    Type = x.le.Type,
+                    Amount = x.le.Amount,
+                    CreatedAt = x.le.CreatedAt,
+                    LineItemId = x.le.LineItemId
+                }).Distinct().ToList()
+            }).SingleOrDefault();        
         return invoice;
     }
 
     public async Task<IEnumerable<InvoiceListDto>> GetInvoices()
-    {
+    {        
         var invoices = await _excerciseContext.Invoices
-            .Select(x => new InvoiceListDto 
-            {
-                Id = x.Id,
-                Reference = x.Reference,
-                CreatedAt = x.CreatedAt,
-                TotalAmount = x.LineItems.Where(y => y.InvoiceId == x.Id).Sum(li => li.Amount),
-                TotalPayment = x.LedgerEntries.Where(le => le.InvoiceId == x.Id).Sum(le => le.Amount)
-            })            
-            .ToListAsync();
+                    .Select(x => new InvoiceListDto
+                    {
+                        Id = x.Id,
+                        Reference = x.Reference,
+                        CreatedAt = x.CreatedAt,
+                        TotalAmount = x.LineItems.Sum(li => li.Amount),
+                        TotalPayment = x.LedgerEntries.Sum(le => le.Amount)
+                    }).ToListAsync();
         return invoices;
     }
 
