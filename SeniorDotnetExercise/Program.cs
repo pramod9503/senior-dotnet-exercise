@@ -27,7 +27,13 @@ builder.Services.AddSwaggerGen();
 //Setup database context and dependency injection for the invoice service.
 builder.Services.AddDbContext<ExerciseDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 
+Console.WriteLine("CONNECTION STRING:");
+Console.WriteLine(connectionString);
+
+builder.Services.AddDbContext<ExerciseDbContext>(options =>
+    options.UseNpgsql(connectionString));
 builder.Services.AddScoped<IInvoiceService, InvoiceService>();
 
 //For production, restrict origins with .WithOrigins("https://yourclient.com")

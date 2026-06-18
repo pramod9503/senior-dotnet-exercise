@@ -39,7 +39,7 @@ namespace SeniorDotnetExercise.Services
                     CreatedAt = le.CreatedAt,
                     LineItemId = le.LineItemId
                 }).OrderByDescending(x => x.CreatedAt).ToList()
-            }).SingleOrDefaultAsync();
+            }).AsNoTracking().SingleOrDefaultAsync();
 
             return invoice;
         }
@@ -56,7 +56,7 @@ namespace SeniorDotnetExercise.Services
                             LedgerCount = x.LedgerEntries.Where(x => x.Type == LedgerEntryType.PaymentReceived).Count(),
                             TotalAmount = x.LineItems.Sum(li => li.Amount),
                             TotalPayment = x.LedgerEntries.Where(x => x.Type == LedgerEntryType.Allocation).Sum(le => le.Amount)
-                        }).ToListAsync();
+                        }).AsNoTracking().ToListAsync();
             return invoices;
         }
 
@@ -143,10 +143,12 @@ namespace SeniorDotnetExercise.Services
             var totalCharged = lineItems.Sum(li => li.Amount);
             var totalAllocated = await _excerciseContext.LedgerEntries
                 .Where(le => le.InvoiceId == invoiceId && le.Type == LedgerEntryType.Allocation)
+                .AsNoTracking()
                 .SumAsync(le => le.Amount);
 
             var totalCredit = await _excerciseContext.LedgerEntries
                     .Where(le => le.InvoiceId == invoiceId && le.Type == LedgerEntryType.Credit)
+                    .AsNoTracking()
                     .SumAsync(le => le.Amount);
 
             var outstandingBalance = totalCharged - totalAllocated - totalCredit;
