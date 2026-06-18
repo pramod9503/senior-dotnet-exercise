@@ -1,4 +1,4 @@
-# Senior Dotnet Exercise
+# Senior Backend Developer (.NET / PostgreSQL) — Practical Exercise
 
 This project is an ASP.NET Core Web API using EF Core and PostgreSQL. It demonstrates how to allocate payments across invoice line items, record all money movement in an append-only ledger, and derive the outstanding invoice balance from the ledger. The implementation is based on a typical real-world scenario for care billing.
 
