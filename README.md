@@ -175,6 +175,8 @@ dotnet ef database update
 - `Models/` — Entity models for EF Core
 - `Services/` — Business logic and service implementations
 - `Abstracts/` — Service interfaces and abstract classes
+- `Dto/` — Data transfer objects for API requests/responses
+- `Controllers/` — API controllers
 - `SeedInvoices.cs` — Seeds the database with initial data if empty
 - `Program.cs` — Application entry point and configuration
 
