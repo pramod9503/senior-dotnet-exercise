@@ -8,7 +8,7 @@ using SeniorDotnetExercise.Models;
 using Microsoft.EntityFrameworkCore;
 using SeniorDotnetExercise.Services;
 
-namespace TestExercise
+namespace TestExercise.UnitTests
 {
     public class InvoiceServiceReadTests
     {

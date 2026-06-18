@@ -7,10 +7,10 @@ namespace SeniorDotnetExercise.Models
         public static void EnsurePopulated(IApplicationBuilder app) 
         {
             ExerciseDbContext context = app.ApplicationServices.CreateScope().ServiceProvider.GetRequiredService<ExerciseDbContext>();
-            if (context.Database.GetPendingMigrations().Any()) 
-            {
-                context.Database.Migrate();
-            }
+            //if (context.Database.GetPendingMigrations().Any()) 
+            //{
+            //    context.Database.Migrate();
+            //}
 
             if (!context.Invoices.Any()) 
             {

@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using SeniorDotnetExercise.Services;
 using SeniorDotnetExercise.Abstracts;
 
-namespace SeniorDotnetExercise.Tests
+namespace TestExercise.UnitTests
 {
     public class InvoiceServiceTests
     {
