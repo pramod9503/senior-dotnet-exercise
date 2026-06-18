@@ -38,7 +38,7 @@ namespace SeniorDotnetExercise.Services
                     Amount = le.Amount,
                     CreatedAt = le.CreatedAt,
                     LineItemId = le.LineItemId
-                }).OrderByDescending(x => x.Type).ToList()
+                }).OrderByDescending(x => x.CreatedAt).ToList()
             }).SingleOrDefaultAsync();
 
             return invoice;
@@ -55,7 +55,7 @@ namespace SeniorDotnetExercise.Services
                             LineItemCount = x.LineItems.Count(),
                             LedgerCount = x.LedgerEntries.Count(),
                             TotalAmount = x.LineItems.Sum(li => li.Amount),
-                            TotalPayment = x.LedgerEntries.Sum(le => le.Amount)
+                            TotalPayment = x.LedgerEntries.Where(x => x.Type == LedgerEntryType.Allocation).Sum(le => le.Amount)
                         }).ToListAsync();
             return invoices;
         }

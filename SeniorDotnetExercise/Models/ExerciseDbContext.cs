@@ -5,8 +5,8 @@ namespace SeniorDotnetExercise.Models
     public class ExerciseDbContext : DbContext
     {
         public DbSet<Invoice> Invoices { get; set; }
-        public DbSet<InvoiceLineItem> InvoiceLineItems { get; set; }
         public DbSet<LedgerEntry> LedgerEntries { get; set; }
+        public DbSet<InvoiceLineItem> InvoiceLineItems { get; set; }        
 
         public ExerciseDbContext(DbContextOptions<ExerciseDbContext> options) : base(options)
         {}

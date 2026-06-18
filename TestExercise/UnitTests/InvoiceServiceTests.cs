@@ -1,11 +1,7 @@
 using Xunit;
-using System;
-using System.Linq;
-using System.Threading.Tasks;
 using SeniorDotnetExercise.Models;
 using Microsoft.EntityFrameworkCore;
 using SeniorDotnetExercise.Services;
-using SeniorDotnetExercise.Abstracts;
 
 namespace TestExercise.UnitTests
 {
