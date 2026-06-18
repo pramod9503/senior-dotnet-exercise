@@ -53,7 +53,7 @@ namespace SeniorDotnetExercise.Services
                             Reference = x.Reference,
                             CreatedAt = x.CreatedAt,
                             LineItemCount = x.LineItems.Count(),
-                            LedgerCount = x.LedgerEntries.Count(),
+                            LedgerCount = x.LedgerEntries.Where(x => x.Type == LedgerEntryType.PaymentReceived).Count(),
                             TotalAmount = x.LineItems.Sum(li => li.Amount),
                             TotalPayment = x.LedgerEntries.Where(x => x.Type == LedgerEntryType.Allocation).Sum(le => le.Amount)
                         }).ToListAsync();
