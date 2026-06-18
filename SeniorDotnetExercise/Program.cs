@@ -1,5 +1,6 @@
 using SeniorDotnetExercise.Models;
 using Microsoft.EntityFrameworkCore;
+using SeniorDotnetExercise.Services;
 using SeniorDotnetExercise.Abstracts;
 
 var builder = WebApplication.CreateBuilder(args);

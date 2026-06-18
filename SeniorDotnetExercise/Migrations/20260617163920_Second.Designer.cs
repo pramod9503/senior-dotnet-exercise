@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using SeniorDotnetExercise.Models;
@@ -11,9 +12,11 @@ using SeniorDotnetExercise.Models;
 namespace SeniorDotnetExercise.Migrations
 {
     [DbContext(typeof(ExerciseDbContext))]
-    partial class ExerciseDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260617163920_Second")]
+    partial class Second
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -87,6 +90,7 @@ namespace SeniorDotnetExercise.Migrations
                         .HasColumnType("uuid");
 
                     b.Property<Guid?>("LineItemId")
+                        .IsRequired()
                         .HasColumnType("uuid");
 
                     b.Property<string>("Type")
@@ -120,7 +124,7 @@ namespace SeniorDotnetExercise.Migrations
                     b.HasOne("SeniorDotnetExercise.Models.Invoice", "Invoice")
                         .WithMany("LedgerEntries")
                         .HasForeignKey("InvoiceId")
-                        .OnDelete(DeleteBehavior.NoAction)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired()
                         .HasConstraintName("FK_Invoice_LedgerEntry");
 
@@ -128,6 +132,7 @@ namespace SeniorDotnetExercise.Migrations
                         .WithMany("LedgerEntries")
                         .HasForeignKey("LineItemId")
                         .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired()
                         .HasConstraintName("FK_InvoiceLineItem_LedgerEntry");
 
                     b.Navigation("Invoice");

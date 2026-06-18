@@ -8,7 +8,7 @@ namespace SeniorDotnetExercise.Abstracts
 
         public Guid InvoiceId { get; set; }
 
-        public Guid LineItemId { get; set; }
+        public Guid? LineItemId { get; set; }
 
         public LedgerEntryType Type { get; set; }
 

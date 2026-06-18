@@ -42,7 +42,8 @@ namespace SeniorDotnetExercise.Models
                     .WithOne(x => x.Invoice)
                     .HasForeignKey(x => x.InvoiceId)
                     .HasConstraintName("FK_Invoice_LedgerEntry")
-                    .OnDelete(DeleteBehavior.Cascade);
+                    .IsRequired()
+                    .OnDelete(DeleteBehavior.NoAction);
                 });
 
             // InvoiceLineItems table setup
@@ -57,7 +58,7 @@ namespace SeniorDotnetExercise.Models
                     entity.HasMany(x => x.LedgerEntries)
                     .WithOne(x => x.LineItem)
                     .HasForeignKey(x => x.LineItemId)
-                    .IsRequired()
+                    .IsRequired(false)
                     .HasConstraintName("FK_InvoiceLineItem_LedgerEntry")
                     .OnDelete(DeleteBehavior.NoAction);
                 });

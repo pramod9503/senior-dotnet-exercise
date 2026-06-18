@@ -2,9 +2,7 @@
 {
     public class InvoiceLineItemBase
     {
-        public Guid Id { get; set; }
-
-        public Guid InvoiceId { get; set; }
+        public Guid Id { get; set; }        
 
         public string Description { get; set; } = String.Empty;
 
