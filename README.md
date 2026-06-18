@@ -109,7 +109,7 @@ Ledger entries: `PaymentReceived £120.00`, `Allocation £100.00 → A`, `Alloca
 - [x] Partial, exact, and overpayment cases all behave as in the examples.
 - [x] Ledger entries are inserted, never updated or deleted; the balance is derived from them.
 - [x] Money is exact to the penny.
-- [x] Tests cover the three cases above (xUnit)using in-memory/SQLite for tests
+- [x] Tests cover the three cases above (xUnit) using in-memory/SQLite for tests
 
 ---
 
@@ -132,11 +132,11 @@ cd SeniorDotnetExercise
 
 2. **Configure the database connection:**
 
-   - Update `appsettings.json`:
+   - Update PostgreSQL connection string in `appsettings.json`:
 
-   - "ConnectionStrings": {
-  "DefaultConnection": "Host=localhost;Database=senior_dotnet_exercise;Username=youruser;Password=yourpassword"
-    }
+   ```
+     "ConnectionStrings": { "DefaultConnection": "Host=localhost;Database=senior_dotnet_exercise;Username=youruser;Password=yourpassword"}
+   ```
 
 
 - You can use Docker to run PostgreSQL locally:
@@ -150,7 +150,9 @@ dotnet ef database update
 ```
 
 4. **Run the application:**
-dotnet run
+    ```
+    dotnet run
+    ```
 
     The API will be available at `https://localhost:7000`.
 
