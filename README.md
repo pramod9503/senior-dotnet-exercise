@@ -46,12 +46,12 @@ The schema is designed as follows:
 ---
 
 ## Method Signature
-```C#
-// Allocates a payment across an invoice's outstanding line items, oldest first, 
-// records the result in the append-only ledger, and returns the invoice's new outstanding balance. A negative result means the invoice is in credit.
+    ```C#
+    // Allocates a payment across an invoice's outstanding line items, oldest first, 
+    // records the result in the append-only ledger, and returns the invoice's new outstanding balance. A negative result means the invoice is in credit.
 
-Task<decimal> AllocatePayment(Guid invoiceId, decimal paymentAmount, DateTime receivedAt);
-```
+    Task<decimal> AllocatePayment(Guid invoiceId, decimal paymentAmount, DateTime receivedAt);
+    ```
 ---
 
 ## Allocation Rules
@@ -124,14 +124,14 @@ Ledger entries: `PaymentReceived £120.00`, `Allocation £100.00 → A`, `Alloca
 ### Setup
 
 1. **Clone the repository:**
-```
-git clone https://github.com/pramod9503/senior-dotnet-exercise.git
+    ```
+    git clone https://github.com/pramod9503/senior-dotnet-exercise.git
 
-```
+    ```
 
-```
-cd senior-dotnet-exercise
-```
+    ```
+    cd senior-dotnet-exercise
+    ```
 
 2. **Configure the database connection:**
 
@@ -142,15 +142,15 @@ cd senior-dotnet-exercise
    ```
 
 
-- You can use Docker to run PostgreSQL locally:
-```
-    > docker run --name postgres-dotnet -e POSTGRES_PASSWORD=yourpassword -p 5432:5432 -d postgres
-```
+    - You can use Docker to run PostgreSQL locally:
+    ```
+        > docker run --name postgres-dotnet -e POSTGRES_PASSWORD=yourpassword -p 5432:5432 -d postgres
+    ```
     
 3. **Apply EF Core migrations:**
-```
-dotnet ef database update
-```
+    ```
+    dotnet ef database update
+    ```
 
 4. **Run the application:**
     ```
