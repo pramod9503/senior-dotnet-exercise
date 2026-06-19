@@ -125,9 +125,12 @@ Ledger entries: `PaymentReceived £120.00`, `Allocation £100.00 → A`, `Alloca
 
 1. **Clone the repository:**
 ```
-git clone https://github.com/pramod9503/SeniorDotnetExercise.git
+git clone https://github.com/pramod9503/senior-dotnet-exercise.git
 
-cd SeniorDotnetExercise
+```
+
+```
+cd senior-dotnet-exercise
 ```
 
 2. **Configure the database connection:**
