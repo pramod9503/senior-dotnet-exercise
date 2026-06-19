@@ -46,12 +46,13 @@ The schema is designed as follows:
 ---
 
 ## Method Signature
-    ```C#
+
+```C#
     // Allocates a payment across an invoice's outstanding line items, oldest first, 
     // records the result in the append-only ledger, and returns the invoice's new outstanding balance. A negative result means the invoice is in credit.
 
     Task<decimal> AllocatePayment(Guid invoiceId, decimal paymentAmount, DateTime receivedAt);
-    ```
+```
 ---
 
 ## Allocation Rules
